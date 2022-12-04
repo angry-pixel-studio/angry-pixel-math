@@ -1,4 +1,3 @@
-import { between } from "./Utils";
 import { Vector2 } from "./Vector2";
 
 export class Rectangle {
@@ -104,20 +103,34 @@ export class Rectangle {
     /**
      * Check if the target rectangle is overlapping
      *
-     * @param rect The rectangle to compare
+     * @param rect The target rectangle
      * @returns TRUE or FALSE
      */
-    public overlapRectangle(rect: Rectangle): boolean {
-        return this.x1 >= rect.x && this.x <= rect.x1 && this.y1 >= rect.y && this.y <= rect.y1;
+    public overlaps(rect: Rectangle): boolean {
+        return this.x1 >= rect.x && this.x < rect.x1 && this.y1 >= rect.y && this.y < rect.y1;
     }
 
     /**
-     * Check if the target vector is overlapping
+     * Check if the target rectangle is contained
+     *
+     * @param rect The target rectangle
+     * @returns TRUE or FALSE
+     */
+    public contains(rect: Rectangle): boolean;
+    /**
+     * Check if the target vector is contained
      *
      * @param vector The target vector
      * @returns TRUE or FALSE
      */
-    public overlapVector(vector: Vector2): boolean {
-        return between(vector.x, this.x, this.x1) && between(vector.y, this.y, this.y1);
+    public contains(vector: Vector2): boolean;
+    public contains(object: Rectangle | Vector2): boolean {
+        if (object instanceof Rectangle) {
+            return object.x1 <= this.x1 && object.x >= this.x && object.y1 <= this.y1 && object.y >= this.y;
+        } else if (object instanceof Vector2) {
+            return !(object.x < this.x || object.y < this.y || object.x >= this.x1 || object.y >= this.y1);
+        }
+
+        return false;
     }
 }

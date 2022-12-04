@@ -43,15 +43,22 @@ export declare class Rectangle {
     /**
      * Check if the target rectangle is overlapping
      *
-     * @param rect The rectangle to compare
+     * @param rect The target rectangle
      * @returns TRUE or FALSE
      */
-    overlapRectangle(rect: Rectangle): boolean;
+    overlaps(rect: Rectangle): boolean;
     /**
-     * Check if the target vector is overlapping
+     * Check if the target rectangle is contained
+     *
+     * @param rect The target rectangle
+     * @returns TRUE or FALSE
+     */
+    contains(rect: Rectangle): boolean;
+    /**
+     * Check if the target vector is contained
      *
      * @param vector The target vector
      * @returns TRUE or FALSE
      */
-    overlapVector(vector: Vector2): boolean;
+    contains(vector: Vector2): boolean;
 }
